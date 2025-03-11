@@ -138,7 +138,7 @@ app.post('/api/products', upload.single('image'), async(req, res) => {
             category,
             description,
             inStock: inStock === 'true',
-            imageUrl: req.file ? `/uploads/${req.file.filename}` : '/uploads/default-product.jpg'
+            imageUrl: req.file ? `./public/uploads/${req.file.filename}` : './public/uploads/default-product.jpg'
         });
 
         const savedProduct = await newProduct.save();
@@ -164,7 +164,7 @@ app.put('/api/products/:id', upload.single('image'), async(req, res) => {
 
         // Only update image if a new one is uploaded
         if (req.file) {
-            updateData.imageUrl = `/uploads/${req.file.filename}`;
+            updateData.imageUrl = `./public/uploads/${req.file.filename}`;
 
             // Delete old image if it exists and is not the default
             const product = await Product.findById(req.params.id);
